@@ -5,7 +5,7 @@ A fork of SharpZipLib to support non-standard .tar files that are larger than 8G
 
 # License #
 
-This fork of the library is relesed under the same terms as original as set out below:
+This fork of the library is released under the same terms as original as set out below:
 
 > The library is released under the GPL with the following exception:
 > 
@@ -27,8 +27,10 @@ https://github.com/icsharpcode/SharpZipLib
 
 # Credits #
 
-\#ziplib has intially been developed by Mike Krueger, however, much existing Java code helped a lot in speeding the creation of this library. Therefore credits fly out to other people.
-The current maintainer of \#ziplib is David Pierson. Please contact him regarding features, bugs etc via the forum.
+Credits as per the original:
+
+> \#ziplib has intially been developed by Mike Krueger, however, much existing Java code helped a lot in speeding the creation of this library. Therefore credits fly out to other people.
+> The current maintainer of \#ziplib is David Pierson. Please contact him regarding features, bugs etc via the forum.
 
 See http://www.icsharpcode.net/OpenSource/SharpZipLib/ for more details.
 
