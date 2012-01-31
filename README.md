@@ -1,8 +1,8 @@
 # Description #
 
-A fork of SharpZipLib to support non-standard .tar files that are larger than 8Gb in size.
+A fork of SharpZipLib to support non-standard .tar files that are larger than 8Gb in size.  The description of the original is as follows:
 
-\#ziplib (SharpZipLib, formerly NZipLib) is a Zip, GZip, Tar and BZip2 library written entirely in C\# for the .NET platform. It is implemented as an assembly (installable in the GAC), and thus can easily be incorporated into other projects (in any .NET language). The creator of \#ziplib put it this way: "I've ported the zip library over to C\# because I needed gzip/zip compression and I didn't want to use libzip.dll or something like this. I want all in pure C\#."
+> \#ziplib (SharpZipLib, formerly NZipLib) is a Zip, GZip, Tar and BZip2 library written entirely in C\# for the .NET platform. It is implemented as an assembly (installable in the GAC), and thus can easily be incorporated into other projects (in any .NET language). The creator of \#ziplib put it this way: "I've ported the zip library over to C\# because I needed gzip/zip compression and I didn't want to use libzip.dll or something like this. I want all in pure C\#."
 
 # License #
 
