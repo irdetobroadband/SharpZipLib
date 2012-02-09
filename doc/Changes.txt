@@ -1,3 +1,6 @@
+Changes for 0.86.5
++ Modified tar header size field to allow individual files of size up to ~68GB. 
+
 Changes for 0.86.0
 + Multi-member gzip files are now supported. Contributed by Geoff Hart.
 + Zero byte files caused ZipOutputStream to create invalid zipfiles. Contributed by Mark Ritchie.
