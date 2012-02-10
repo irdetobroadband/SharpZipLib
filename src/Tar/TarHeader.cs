@@ -548,6 +548,15 @@ namespace ICSharpCode.SharpZipLib.Tar
 			get { return devMinor; }
 			set { devMinor = value; }
 		}
+
+        /// <summary>
+        /// Get/set to use 11 bytes (original) or 12 bytes (new) to store file size.
+        /// </summary>
+        public bool Use12ByteSizeHeader
+        {
+            get { return use12ByteSizeHeader; }
+            set { use12ByteSizeHeader = value; }
+        }
 		
 		#endregion
 
@@ -642,8 +651,9 @@ namespace ICSharpCode.SharpZipLib.Tar
 			offset = GetOctalBytes(mode, outBuffer, offset, MODELEN);
 			offset = GetOctalBytes(UserId, outBuffer, offset, UIDLEN);
 			offset = GetOctalBytes(GroupId, outBuffer, offset, GIDLEN);
-			
-			offset = GetLongOctalBytes(Size, outBuffer, offset, SIZELEN);
+
+            offset = (use12ByteSizeHeader) ? GetSizeLongOctalBytes(Size, outBuffer, offset, SIZELEN) : 
+                GetLongOctalBytes(GetCTime(ModTime), outBuffer, offset, MODTIMELEN);
 			offset = GetLongOctalBytes(GetCTime(ModTime), outBuffer, offset, MODTIMELEN);
 			
 			int csOffset = offset;
@@ -1003,8 +1013,8 @@ namespace ICSharpCode.SharpZipLib.Tar
 			int localIndex = length - 1;
 
 			// Either a space or null is valid here.  We use NULL as per GNUTar
-			buffer[offset + localIndex] = 0;
-			--localIndex;
+            buffer[offset + localIndex] = 0;
+            --localIndex;
 
 			if (value > 0) {
 				for ( long v = value; (localIndex >= 0) && (v > 0); --localIndex ) {
@@ -1019,6 +1029,51 @@ namespace ICSharpCode.SharpZipLib.Tar
 			
 			return offset + length;
 		}
+
+
+        /// <summary>
+        /// Put an octal representation of the file size value into a buffer  - uses full 12 octal bytes instead of original 11 byte spec
+        /// </summary>
+        /// <param name = "value">
+        /// the value to be converted to octal
+        /// </param>
+        /// <param name = "buffer">
+        /// buffer to store the octal string
+        /// </param>
+        /// <param name = "offset">
+        /// The offset into the buffer where the value starts
+        /// </param>
+        /// <param name = "length">
+        /// The length of the octal string to create
+        /// </param>
+        /// <returns>
+        /// The offset of the character next byte after the octal string
+        /// </returns>
+        public static int GetSizeLongOctalBytes(long value, byte[] buffer, int offset, int length)
+        {
+            if (buffer == null)
+            {
+                throw new ArgumentNullException("buffer");
+            }
+
+            int localIndex = length - 1;
+
+            if (value > 0)
+            {
+                for (long v = value; (localIndex >= 0) && (v > 0); --localIndex)
+                {
+                    buffer[offset + localIndex] = (byte)((byte)'0' + (byte)(v & 7));
+                    v >>= 3;
+                }
+            }
+
+            for (; localIndex >= 0; --localIndex)
+            {
+                buffer[offset + localIndex] = (byte)'0';
+            }
+
+            return offset + length;
+        }
 		
 		/// <summary>
 		/// Put an octal representation of a value into a buffer
@@ -1126,6 +1181,7 @@ namespace ICSharpCode.SharpZipLib.Tar
 		string groupName;
 		int devMajor;
 		int devMinor;
+       		bool use12ByteSizeHeader;
 		#endregion
 
 		#region Class Fields
