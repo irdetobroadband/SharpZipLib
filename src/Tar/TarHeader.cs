@@ -1,6 +1,6 @@
 // TarHeader.cs
 //
-// Copyright (C) 2001 Mike Krueger
+// Copyright (C) 2012 Irdeto
 //
 // This program is free software; you can redistribute it and/or
 // modify it under the terms of the GNU General Public License
@@ -63,6 +63,10 @@ struct header
 	char t_prefix[155];        // 345 Prefix for t_name
 	char t_mfill[12];          // 500 Filler up to 512
 };
+ 
+ *All header fields are null terminated, save for the Filesize field (bytes 124-135)
+ *This expands the usable bytes from 11 to 12 to allow for archiving of individual files in excess of ~8.5GB up to ~68GB.
+ *This is a common and widely supported tar variation, but nevertheless: CAVEAT EMPTOR
 
 */
 
